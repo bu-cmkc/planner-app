@@ -11,6 +11,7 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
+    "yarn": "^1.15.2",
     "yelp-fusion": "^2.2.1"
   },
   "devDependencies": {
