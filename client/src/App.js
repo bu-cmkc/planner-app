@@ -4,7 +4,9 @@ import './App.css';
 class App extends Component {
   state = {
     response: '',
-    post: '',
+    // post: '',
+    postTerm: '',
+    postLocation: '',
     responseToPost: '',
   };
   componentDidMount() {
@@ -25,7 +27,10 @@ class App extends Component {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ post: this.state.post }),
+      body: JSON.stringify({ 
+        postTerm: this.state.postTerm, 
+        postLocation: this.state.postLocation 
+      }),
     });
     const body = await response.text();
     this.setState({ responseToPost: body });
@@ -50,13 +55,22 @@ render() {
         <p>{this.state.response}</p>
         <form onSubmit={this.handleSubmit}>
           <p>
-            <strong>Post to Server:</strong>
+            <strong>Yelp Fusion GET request:</strong>
           </p>
+          <p>term:</p>
           <input
             type="text"
-            value={this.state.post}
-            onChange={e => this.setState({ post: e.target.value })}
+            value={this.state.postTerm}
+            onChange={e => this.setState({ postTerm: e.target.value })}
           />
+          <p>location:</p>
+          <input
+            type="text"
+            value={this.state.postLocation}
+            onChange={e => this.setState({ postLocation: e.target.value })}
+          />
+          <br></br>
+          <br/>
           <button type="submit">Submit</button>
         </form>
         <p>{this.state.responseToPost}</p>

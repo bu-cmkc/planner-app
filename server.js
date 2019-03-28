@@ -11,9 +11,28 @@ app.get('/api/hello', (req, res) => {
 });
 app.post('/api/world', (req, res) => {
   console.log(req.body);
-  res.send(
-    `I received your POST request. This is what you sent me: ${req.body.post}`,
-  );
+  console.log(req.body['postTerm']);
+  // res.send(
+  //   `I received your POST request. This is what you sent me: ${req.body.post}`,
+  // );
+  const yelp = require('yelp-fusion');
+  const apiKey = require('./api').yelpKey;
+  const searchRequest = {
+    term: req.body['postTerm'],
+    location: req.body['postLocation']
+  };
+  const client = yelp.client(apiKey);
+
+  client.search(searchRequest).then(response => {
+    const firstResult = response.jsonBody.businesses[0];
+    const prettyJson = JSON.stringify(firstResult, null, 4);
+    console.log(prettyJson);
+    res.send(
+      `I received your POST request. This is what you sent me: ${prettyJson}`,
+    );
+  }).catch(e => {
+    console.log(e);
+  });
 });
 if (process.env.NODE_ENV === 'production') {
   // Serve any static files
