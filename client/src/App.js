@@ -3,13 +3,13 @@ import logo from './logo.svg';
 import './App.css';
 import { JsonToTable } from "react-json-to-table";
 
-function jTable(jData) {
-  return (
-    <div>
-      <JsonToTable json={jData} />
-    </div>
-  );
-}
+// function jTable(jData) {
+//   return (
+//     <div>
+//       <JsonToTable json={jData} />
+//     </div>
+//   );
+// }
 
 class App extends Component {
   state = {
@@ -120,7 +120,11 @@ render() {
         {/* <pre>{this.state.responseToPost}</pre> */}
         {/* {jTable(this.state.responseToPost)} */}
         <div id="data">
-          <JsonToTable json={this.state.responseToPost} />
+          <JsonToTable class="in-data" json={this.state.responseToPost[0]} />
+          <JsonToTable class="in-data" json={this.state.responseToPost[1]} />
+          <JsonToTable class="in-data" json={this.state.responseToPost[2]} />
+          <JsonToTable class="in-data" json={this.state.responseToPost[3]} />
+          <JsonToTable class="in-data" json={this.state.responseToPost[4]} />
         </div>
       </div>
     );

@@ -20,7 +20,7 @@ app.post('/api/world', (req, res) => {
   const searchRequest = {
     term: req.body['postTerm'],
     location: req.body['postLocation'],
-    limit: 3,
+    limit: 10,
   };
   const client = yelp.client(apiKey);
 
@@ -32,7 +32,7 @@ app.post('/api/world', (req, res) => {
     console.log(response.jsonBody.businesses[0]);
     // console.log(prettyJson);
     res.send(
-      response.jsonBody.businesses[0],
+      response.jsonBody.businesses,
     );
   }).catch(e => {
     console.log(e);
