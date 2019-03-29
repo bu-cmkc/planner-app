@@ -4,7 +4,7 @@ const yelp = require('yelp-fusion');
 
 // Place holder for Yelp Fusion's API Key. Grab them
 // from https://www.yelp.com/developers/v3/manage_app
-const apiKey = require('./api').yelpKey;
+const apiKey = require('../config/api').YELP_KEY;
 
 const searchRequest = {
   term:'Four Barrel Coffee',

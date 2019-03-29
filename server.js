@@ -16,7 +16,7 @@ app.post('/api/world', (req, res) => {
   //   `I received your POST request. This is what you sent me: ${req.body.post}`,
   // );
   const yelp = require('yelp-fusion');
-  const apiKey = require('./api').yelpKey;
+  const apiKey = require('./config/api').YELP_KEY;
   const searchRequest = {
     term: req.body['postTerm'],
     location: req.body['postLocation']
