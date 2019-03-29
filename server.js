@@ -19,16 +19,20 @@ app.post('/api/world', (req, res) => {
   const apiKey = require('./config/api').YELP_KEY;
   const searchRequest = {
     term: req.body['postTerm'],
-    location: req.body['postLocation']
+    location: req.body['postLocation'],
+    limit: 3,
   };
   const client = yelp.client(apiKey);
 
   client.search(searchRequest).then(response => {
     const firstResult = response.jsonBody.businesses[0];
     const prettyJson = JSON.stringify(firstResult, null, 4);
-    console.log(prettyJson);
+    // const prettyJson = JSON.stringify(response.jsonBody, null, 4);
+    // console.log('hi');
+    console.log(response.jsonBody.businesses[0]);
+    // console.log(prettyJson);
     res.send(
-      `I received your POST request. This is what you sent me: ${prettyJson}`,
+      response.jsonBody.businesses[0],
     );
   }).catch(e => {
     console.log(e);

@@ -1,13 +1,38 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { JsonToTable } from "react-json-to-table";
+
+function jTable(jData) {
+  return (
+    <div>
+      <JsonToTable json={jData} />
+    </div>
+  );
+}
+
 class App extends Component {
   state = {
     response: '',
     // post: '',
     postTerm: '',
     postLocation: '',
-    responseToPost: '',
+    responseToPost: {},
+    testJson: {
+      Analyst: { name: "Jack", email: "jack@xyz.com" },
+      "Loaded by": "Jills",
+      "Load id": 34,
+      "git id": "xxqaygqertqsg98qhpughqer",
+      "Analysis Id": "7asdlnagsd98gfaqsgf",
+      "Load Date": "July 12, 2018",
+      "Data Source": "Study XY123-456",
+      "Jira Ticket": "Foo-1",
+      "Confluence URL": "http://myserver/wxyz",
+      "Study sponsors": [
+        { name: "john", email: "john@@xyz.com" },
+        { name: "jane", email: "jane@@xyz.com" }
+      ]
+    },
   };
   componentDidMount() {
     this.callApi()
@@ -32,10 +57,28 @@ class App extends Component {
         postLocation: this.state.postLocation 
       }),
     });
-    const body = await response.text();
+    const body = await response.json();
+    // console.log("body below");
+    // console.log(body);
     this.setState({ responseToPost: body });
   };
 render() {
+  // const myJson = {
+  //   Analyst: { name: "Jack", email: "jack@xyz.com" },
+  //   "Loaded by": "Jills",
+  //   "Load id": 34,
+  //   "git id": "xxqaygqertqsg98qhpughqer",
+  //   "Analysis Id": "7asdlnagsd98gfaqsgf",
+  //   "Load Date": "July 12, 2018",
+  //   "Data Source": "Study XY123-456",
+  //   "Jira Ticket": "Foo-1",
+  //   "Confluence URL": "http://myserver/wxyz",
+  //   "Study sponsors": [
+  //     { name: "john", email: "john@@xyz.com" },
+  //     { name: "jane", email: "jane@@xyz.com" }
+  //   ]
+  // };
+  
     return (
       <div className="App">
         <header className="App-header">
@@ -55,7 +98,7 @@ render() {
         <p>{this.state.response}</p>
         <form onSubmit={this.handleSubmit}>
           <p>
-            <strong>Yelp Fusion GET request:</strong>
+            <strong>Yelp Fusion POST request:</strong>
           </p>
           <p>term:</p>
           <input
@@ -73,7 +116,12 @@ render() {
           <br/>
           <button type="submit">Submit</button>
         </form>
-        <p>{this.state.responseToPost}</p>
+        {/* <p>{this.state.responseToPost}</p> */}
+        {/* <pre>{this.state.responseToPost}</pre> */}
+        {/* {jTable(this.state.responseToPost)} */}
+        <div id="data">
+          <JsonToTable json={this.state.responseToPost} />
+        </div>
       </div>
     );
   }
