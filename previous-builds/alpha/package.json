@@ -1,0 +1,22 @@
+{
+  "name": "planner-app",
+  "version": "1.0.0",
+  "scripts": {
+    "client": "cd client && yarn start",
+    "server": "nodemon server.js",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
+    "start": "node server.js",
+    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "passport": "^0.4.0",
+    "passport-google-oauth": "^2.0.0",
+    "yarn": "^1.15.2",
+    "yelp-fusion": "^2.2.1"
+  },
+  "devDependencies": {
+    "concurrently": "^4.0.1"
+  }
+}

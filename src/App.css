@@ -2,20 +2,6 @@
   text-align: center;
 }
 
-pre {
-  text-align: left;
-  padding-left: 2em;
-}
-
-#data {
-  padding: 2em 0em;
-}
-
-.json-to-table {
-  border-bottom: 100px solid #282c34;
-  /* padding: 1em 0em; */
-}
-
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 40vmin;
@@ -24,14 +10,13 @@ pre {
 
 .App-header {
   background-color: #282c34;
-  min-height: 50%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-  padding-bottom: 10px;
 }
 
 .App-link {

@@ -1,15 +1,24 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const app = express();
-const port = process.env.PORT || 5000;
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+const router = express.Router()
+// const app = express();
+
+const morgan = require('morgan')
+const session = require('express-session')
+const MongoStore = require('connect-mongo')(session)
+const dbConnection = require('./db')
+const passport = require('./passport')
+const port = process.env.PORT || 8080
+
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
+
 // API calls
-app.get('/api/hello', (req, res) => {
+router.get('/api/hello', (req, res) => {
   res.send({ express: 'Hello From Express' });
 });
-app.post('/api/world', (req, res) => {
+router.post('/api/world', (req, res) => {
   console.log(req.body);
   console.log(req.body['postTerm']);
   // res.send(
@@ -40,10 +49,13 @@ app.post('/api/world', (req, res) => {
 });
 if (process.env.NODE_ENV === 'production') {
   // Serve any static files
-  app.use(express.static(path.join(__dirname, 'client/build')));
+  router.use(express.static(path.join(__dirname, 'client/build')));
   // Handle React routing, return all requests to React app
-  app.get('*', function(req, res) {
+  router.get('*', function(req, res) {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
   });
 }
-app.listen(port, () => console.log(`Listening on port ${port}`));
+router.listen(port, () => console.log(`Listening on port ${port}`));
+
+const api = null
+module.exports = api
