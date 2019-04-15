@@ -27,6 +27,8 @@ router.get('/user', (req, res, next) => {
 router.post(
     '/login',
     function(req, res, next) {
+        res.locals.currentUser = req.user;
+        // console.log(res.locals.currentUser);
         console.log(req.body)
         console.log('============')
         next()

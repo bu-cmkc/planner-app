@@ -1,0 +1,25 @@
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+// Create Schema
+const PrefSchema = new Schema({
+<<<<<<< HEAD
+    pref: { 
+=======
+    name: { 
+>>>>>>> 086c4fa20bb98886840c57f1ccea4f0d020c1f23
+        type: String,
+        required: true
+    }, 
+    date: {
+        type: Date,
+        default: Date.now
+    },
+    user: {
+        type: String,
+        required: true
+    }
+});
+
+// mongoose.model('name of model', schema);
+module.exports = Pref = mongoose.model('pref', PrefSchema);

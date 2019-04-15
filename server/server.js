@@ -59,41 +59,39 @@ app.use(passport.session())
 
 // === SOME API CALLS THAT ARGUABLY SHOULDN'T BE HERE === //
 
-app.get('/api/hello', (req, res) => {
-  res.send({ express: 'Hello From Express' });
-});
+// app.get('/api/hello', (req, res) => {
+//   res.send({ express: 'Hello From Express' });
+// });
 
-app.post('/api/world', (req, res) => {
-  console.log(req.body);
-  console.log(req.body['postTerm']);
-  // res.send(
-  //   `I received your POST request. This is what you sent me: ${req.body.post}`,
-  // );
-  const yelp = require('yelp-fusion');
-  const apiKey = require('./../config/api').YELP_KEY;
-  const searchRequest = {
-    term: req.body['postTerm'],
-    location: req.body['postLocation'],
-    limit: 10,
-  };
-  const client = yelp.client(apiKey);
+// app.post('/api/world', (req, res) => {
+//   console.log(req.body);
+//   console.log(req.body['postTerm']);
+//   // res.send(
+//   //   `I received your POST request. This is what you sent me: ${req.body.post}`,
+//   // );
+//   const yelp = require('yelp-fusion');
+//   const apiKey = require('/config/api').YELP_KEY;
+//   const searchRequest = {
+//     term: req.body['postTerm'],
+//     location: req.body['postLocation'],
+//     limit: 10,
+//   };
+//   const client = yelp.client(apiKey);
 
-  client.search(searchRequest).then(response => {
-    const firstResult = response.jsonBody.businesses[0];
-    const prettyJson = JSON.stringify(firstResult, null, 4);
-    // const prettyJson = JSON.stringify(response.jsonBody, null, 4);
-    // console.log('hi');
-    console.log(response.jsonBody.businesses[0]);
-    // console.log(prettyJson);
-    res.send(
-      response.jsonBody.businesses,
-    );
-  }).catch(e => {
-    console.log(e);
-  });
-});
-
-
+//   client.search(searchRequest).then(response => {
+//     const firstResult = response.jsonBody.businesses[0];
+//     const prettyJson = JSON.stringify(firstResult, null, 4);
+//     // const prettyJson = JSON.stringify(response.jsonBody, null, 4);
+//     // console.log('hi');
+//     console.log(response.jsonBody.businesses[0]);
+//     // console.log(prettyJson);
+//     res.send(
+//       response.jsonBody.businesses,
+//     );
+//   }).catch(e => {
+//     console.log(e);
+//   });
+// });
 
 
 
@@ -109,6 +107,7 @@ if (process.env.NODE_ENV === 'production') {
 
 // === ROUTING === //
 app.use('/auth', require('./auth'))
+app.use('/api/prefs', require('./routes/api/prefs'));
 
 // === ERROR === //
 app.use(function(err, req, res, next) {

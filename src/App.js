@@ -8,6 +8,7 @@ import LoginForm from './components/Login/LoginForm'
 import SignupForm from './components/SignupForm'
 import Header from './components/Header'
 import Home from './components/Home'
+import PrefForm from './components/PreferenceForm'
 
 const DisplayLinks = props => {
 	if (props.loggedIn) {
@@ -217,6 +218,10 @@ class App extends Component {
 					/> */}
 					<p>{this.state.response}</p>
 					<form onSubmit={this.handleSubmit}>
+                    <PrefForm
+                        loggedIn={this.state.loggedIn}
+                        _user={this.state.user}
+                    />
 					<p>
 						<strong>Yelp Fusion POST request:</strong>
 					</p>

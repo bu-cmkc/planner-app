@@ -11,6 +11,7 @@ class SignupForm extends Component {
 			confirmPassword: '',
 			redirectTo: null
 		}
+        this._login= this._login.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
 		this.handleChange = this.handleChange.bind(this)
 	}
@@ -20,6 +21,7 @@ class SignupForm extends Component {
 		})
 	}
 	handleSubmit(event) {
+        console.log(`login ${this._login}`);
 		event.preventDefault()
 		// TODO - validate!
 		axios
