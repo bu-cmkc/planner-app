@@ -1,0 +1,7 @@
+NODE_ENV=development
+
+# MONGODB_URI=mongodb://ctrinh98:CKkathy2005@ds239206.mlab.com:39206/planner-app
+MONGODB_URI=mongodb+srv://Masa:TTovvaisK23twnQM@mernshopping-ofvio.gcp.mongodb.net/test?retryWrites=true
+GOOGLE_CLIENT_ID=73227905497-g1jsbc55qa6j567912ghdli5obhpkofd.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=POyci7fwMnGArFLDbfAktroH
+APP_SECRET=secret

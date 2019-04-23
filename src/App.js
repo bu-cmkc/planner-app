@@ -8,6 +8,7 @@ import LoginForm from './components/Login/LoginForm'
 import SignupForm from './components/SignupForm'
 import Header from './components/Header'
 import Home from './components/Home'
+import PreferenceForm from './components/PreferenceForm'
 
 const DisplayLinks = props => {
 	if (props.loggedIn) {
@@ -204,6 +205,8 @@ class App extends Component {
 		} else {
 			return (
 				<div className="App">
+					{/* LINKS to our different 'pages' */}
+					<DisplayLinks _logout={this._logout} loggedIn={this.state.loggedIn} />
 					<h1>This is the main App component</h1>
 					{/* <Header 
 						user={this.state.user} 
@@ -215,6 +218,10 @@ class App extends Component {
 						onChangeT={this.onChangeT}
 						onChangeL={this.onChangeL}
 					/> */}
+                    <PreferenceForm
+                        loggedIn={this.state.loggedIn}
+                        _user={this.state.user}
+                    />
 					<p>{this.state.response}</p>
 					<form onSubmit={this.handleSubmit}>
 					<p>
@@ -253,8 +260,7 @@ class App extends Component {
 						<JsonToTable class="in-data" json={this.state.responseToPost[3]} />
 						<JsonToTable class="in-data" json={this.state.responseToPost[4]} /> */}
 					</div>
-					{/* LINKS to our different 'pages' */}
-					<DisplayLinks _logout={this._logout} loggedIn={this.state.loggedIn} />
+					
 					{/*  ROUTES */}
 					{/* <Route exact path="/" component={Home} /> */}
 					<Route exact path="/" render={() => <Home user={this.state.user} />} />
