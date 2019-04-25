@@ -6,12 +6,10 @@ import './App.css';
 
 import LoginForm from './components/Login/LoginForm';
 import SignupForm from './components/SignupForm';
-import Header from './components/Header';
+// import Header from './components/Header';
 import Home from './components/Home';
 import PreferenceForm from './components/PreferenceForm';
 import YelpFusion from './components/YelpFusion';
-
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 const DisplayLinks = props => {
 	if (props.loggedIn) {
