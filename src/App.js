@@ -4,11 +4,12 @@ import { Route, Link } from 'react-router-dom'
 // import logo from './logo.svg';
 import './App.css';
 
-import LoginForm from './components/Login/LoginForm'
-import SignupForm from './components/SignupForm'
-import Header from './components/Header'
-import Home from './components/Home'
-import PreferenceForm from './components/PreferenceForm'
+import LoginForm from './components/Login/LoginForm';
+import SignupForm from './components/SignupForm';
+import Header from './components/Header';
+import Home from './components/Home';
+import PreferenceForm from './components/PreferenceForm';
+import YelpFusion from './components/YelpFusion';
 
 const DisplayLinks = props => {
 	if (props.loggedIn) {
@@ -18,6 +19,16 @@ const DisplayLinks = props => {
 					<li className="nav-item">
 						<Link to="/" className="nav-link">
 							Home
+						</Link>
+					</li>
+					<li className="nav-item">
+                        <Link to="/addPreferences" className="nav-link">
+							AddPreferences
+						</Link>
+					</li>
+					<li className="nav-item">
+                        <Link to="/yelpFusion" className="nav-link">
+							Yelp Fusion
 						</Link>
 					</li>
 					<li>
@@ -207,62 +218,25 @@ class App extends Component {
 				<div className="App">
 					{/* LINKS to our different 'pages' */}
 					<DisplayLinks _logout={this._logout} loggedIn={this.state.loggedIn} />
-					<h1>This is the main App component</h1>
-					{/* <Header 
-						user={this.state.user} 
-						response={this.state.response}
-						postTerm={this.state.postTerm}
-						postLocation={this.state.postLocation}
-						responseToPost={this.state.responseToPost}
-						handleSubmit={this.handleSubmit}
-						onChangeT={this.onChangeT}
-						onChangeL={this.onChangeL}
-					/> */}
-                    <PreferenceForm
-                        loggedIn={this.state.loggedIn}
-                        _user={this.state.user}
-                    />
-					<p>{this.state.response}</p>
-					<form onSubmit={this.handleSubmit}>
-					<p>
-						<strong>Yelp Fusion POST request:</strong>
-					</p>
-					<p>term:</p>
-					<input
-						type="text"
-						value={this.state.postTerm}
-						onChange={e => this.setState({ postTerm: e.target.value })}
-					/>
-					<p>location:</p>
-					<input
-						type="text"
-						value={this.state.postLocation}
-						onChange={e => this.setState({ postLocation: e.target.value })}
-					/>
-					<br></br>
-					<br/>
-					<button type="submit">Submit</button>
-					</form>
-					{/* <p>{this.state.responseToPost}</p> */}
-					{/* <pre>{this.state.responseToPost}</pre> */}
-					{/* {jTable(this.state.responseToPost)} */}
-					<div id="data">
-						<p></p>
-						<code>
-							{JSON.stringify(this.state.responseToPost)}
-						</code>
-						<p></p>
-						<pre>{this.state.responseToPost['alias']}</pre>
-						{/* <p>{this.state.responseToPost === {} ? "hoopla" : this.state.responseToPost}</p> */}
-						{/* <JsonToTable class="in-data" json={this.state.responseToPost[0]} />
-						<JsonToTable class="in-data" json={this.state.responseToPost[1]} />
-						<JsonToTable class="in-data" json={this.state.responseToPost[2]} />
-						<JsonToTable class="in-data" json={this.state.responseToPost[3]} />
-						<JsonToTable class="in-data" json={this.state.responseToPost[4]} /> */}
-					</div>
+					<h1>Planner App</h1>
 					
 					{/*  ROUTES */}
 					{/* <Route exact path="/" component={Home} /> */}
+                    
+					<Route exact path="/yelpFusion" render={() => <YelpFusion
+                                                        handleSubmit={this.handleSubmit}
+                                                        stateResponse={this.state.response}
+                                                        statePostTerm={this.state.postTerm}
+                                                        setState={this.setState}
+                                                        statePostLocation={this.state.postLocation}
+                                                        stateResponsetopost={this.state.responsetopost}
+                                                        /> } />
+
+					<Route exact path="/addPreferences" render={() => <PreferenceForm
+                                                        loggedIn={this.state.loggedIn}
+                                                        _user={this.state.user}
+                                                        /> } />
+
 					<Route exact path="/" render={() => <Home user={this.state.user} />} />
 					<Route
 						exact

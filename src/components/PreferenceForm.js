@@ -49,6 +49,7 @@ class PreferenceForm extends Component {
 		return (
 			<div className="PrefForm">
 				<label htmlFor="preference">Preference: </label>
+                <br/>
 				<textarea
 					type="text"
 					name="preference"
@@ -57,7 +58,8 @@ class PreferenceForm extends Component {
 					value={this.state.preference}
 					onChange={this.handleChange}
 				/>
-				<button onClick={this.handleSubmit}>Submit Preference</button>
+                <br/>
+				<button class="btn btn-dark" onClick={this.handleSubmit}>Submit Preference</button>
 			</div>
 		)
 	}
