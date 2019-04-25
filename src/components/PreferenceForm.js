@@ -15,7 +15,12 @@ class PreferenceForm extends Component {
 	constructor() {
 		super();
 		this.state = {
-			preference: '',
+			preference: {
+                food: '',
+                activities: '',
+                radius:'',
+                location:''
+            },
 			user_id: '',
 			redirectTo: null,
 		};
@@ -103,7 +108,7 @@ class PreferenceForm extends Component {
                                 name="preference"
                                 cols="30"
                                 rows="6"
-                                value={this.state.preference}
+                                value={this.state.preference.food}
                                 onChange={this.handleChange}
                             />
                        </Col>
@@ -115,7 +120,7 @@ class PreferenceForm extends Component {
                                 name="preference"
                                 cols="30"
                                 rows="6"
-                                value={this.state.preference}
+                                value={this.state.preference.activities}
                                 onChange={this.handleChange}
                             />
                             <br/>
