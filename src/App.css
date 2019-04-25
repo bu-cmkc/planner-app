@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+div.margins {
+    margin: 10px 20% 10px 20%;
+}
+
 img#pfp {
   flex: 1;
   width: 100px;

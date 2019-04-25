@@ -14,28 +14,33 @@ library.add(faUserFriends);
 class PreferenceForm extends Component {
 	constructor() {
 		super();
+		this.getCurrDate = this.getCurrDate.bind(this);
 		this.state = {
 			preference: {
                 food: '',
                 activities: '',
                 radius:'',
-                location:''
+                location:'',
+                date: {
+                    start: this.getCurrDate(),
+                    end: this.getCurrDate()
+                }
             },
 			user_id: '',
 			redirectTo: null,
 		};
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleChange = this.handleChange.bind(this);
-		this.getCurrDate = this.getCurrDate.bind(this);
 	}
 
-    getCurrDate(separator='-') {
+    getCurrDate(separator='-', yearOffset=0) {
         let date = new Date();
         let year = date.getFullYear();
         let month = date.getMonth() + 1;
         let day = date.getDate()
         let hours = date.getHours();
         let minutes = date.getMinutes();
+        year = year + yearOffset;
 
         let currDate = `${year}${separator}${month<10?`0${month}`:`${month}`}${separator}${day<10?`0${day}`:`${day}`}T${hours<10?`0${hours}`:`${hours}`}:${minutes<10?`0${minutes}`:`${minutes}`}`;
 
@@ -83,22 +88,23 @@ class PreferenceForm extends Component {
                     <label className="inline">Location: </label>
                     <input
                         type="text"
-                        value={this.props.statePostlocation}
-                        onChange={e => props.setState({ postlocation: e.target.value })}
+                        value={this.state.preference.location}
+                        onChange={e => this.setState({ ...this.state, preference: { ...this.state.preference, location: e.target.value } })}
                     />
                     <br/>
                     <label className="inline">Radius in meters: </label>
                     <input
                         type="text"
-                        value={this.props.statePostlocation}
-                        onChange={e => props.setState({ postlocation: e.target.value })}
+                        value={this.state.preference.radius}
+                        onChange={e => this.setState({ ...this.state, preference: { ...this.state.preference, radius: e.target.value } })}
                     />
                     <br/>
                     <label className="inline">Start: </label>
-                    <input type="datetime-local" name="dateTime" value={this.getCurrDate()} min={this.getCurrDate()}/>
+                    <input type="datetime-local" name="dateTime" value={this.state.preference.date.start} onChange={e => this.setState({ ...this.state, preference: { ...this.state.preference, date: { ...this.state.preference.date, start: e.target.value } } })} min={this.getCurrDate()} max={this.getCurrDate('-', 1)}/>
                     <br/>
                     <label className="inline">End: </label>
-                    <input type="datetime-local" name="dateTime" value={this.getCurrDate()} min={this.getCurrDate()}/>
+                    <input type="datetime-local" name="dateTime" value={this.state.preference.date.end} onChange={e => this.setState({ ...this.state, preference: { ...this.state.preference, date: { ...this.state.preference.date, end: e.target.value } } })}
+                        min={this.getCurrDate()} max={this.getCurrDate('-', 1)}/>
                     <Row>
                        <Col>
                             <label htmlFor="preference">Favorite foods: </label>
