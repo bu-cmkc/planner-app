@@ -48,7 +48,11 @@ class PreferenceForm extends Component {
 		}
 		return (
 			<div className="PrefForm">
-				<label htmlFor="preference">Preference: </label>
+                <View style={styles.container}>
+                    
+                    
+                </View>
+				<label htmlFor="preference">What are food preferences? </label>
                 <br/>
 				<textarea
 					type="text"
