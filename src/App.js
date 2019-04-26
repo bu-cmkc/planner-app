@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Create from './components/Create';
 import Index from './components/Index';
+import Home from './components/Home';
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
@@ -10,8 +11,8 @@ class App extends Component {
     return (
       <Router>
         <div className="container">
-          <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <a className="navbar-brand">React Axios App</a>
+          <nav className="navbar navbar-expand-sm navbar-light bg-light">
+            <a className="navbar-brand"><Link to={'/'} className="nav-link">React Axios App</Link></a>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav mr-auto">
                 <li className="nav-item"><Link to={'/create'} className="nav-link">Create</Link></li>
@@ -21,6 +22,7 @@ class App extends Component {
             </div>
           </nav>
           <Switch>
+              <Route exact path='/' component={ Home } />
               <Route exact path='/create' component={ Create } />
               <Route path='/index' component={ Index } />
           </Switch>
