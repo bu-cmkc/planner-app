@@ -33,14 +33,14 @@ router.get('/', (req, res) => {
 // @desc    Create An Pref
 // @access  Private
 router.post('/', (req, res) => {
-    const { pref } = req.body;
+    const { preferences } = req.body;
     const { user_id } = req.body;
     console.log(user_id);
 
     // loggedIn, function (lreq, lres, next) {
     const newPref = new Pref({
-      pref: pref, 
-      user: user_id
+      preferences: preferences, 
+      user_id: user_id
     })
     newPref.save().then(Pref => res.json(Pref))
     .catch(err => console.log(err));

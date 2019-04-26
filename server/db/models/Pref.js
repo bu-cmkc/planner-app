@@ -3,15 +3,43 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const PrefSchema = new Schema({
-    pref: { 
-        type: String,
+    preferences: {
+        food: {
+            type: String,
+            required: true
+        },
+        activities: {
+            type: String,
+            required: true
+        },
+        radius: {
+            type: String,
+            required: false
+        },
+        location:{
+            type: String,
+            required: false
+        },
+        date: {
+            start: {
+                type: String,
+                required: false
+            },
+            end: {
+                type: String,
+                required: false
+            },
+            type: String,
+            required: false
+        },
+        type: Array, 
         required: true
-    }, 
+    },
     date: {
         type: Date,
         default: Date.now
     },
-    user: {
+    user_id: {
         type: String,
         required: true
     }

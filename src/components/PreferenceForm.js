@@ -16,7 +16,7 @@ class PreferenceForm extends Component {
 		super();
 		this.getCurrDate = this.getCurrDate.bind(this);
 		this.state = {
-			preference: {
+			preferences: {
                 food: '',
                 activities: '',
                 radius:'',
@@ -57,9 +57,12 @@ class PreferenceForm extends Component {
             event.preventDefault()
 
             // TODO - validate!
+
+            this.props.pref = this.state.preferences;
+            console.log({ preferences: this.props.pref });
             axios
                 .post('/api/prefs', {
-                    pref: this.state.preference,
+                    preferences: this.state.preferences,
                     user_id: this.props._user._id
                 })
                 .then(response => {
@@ -88,46 +91,46 @@ class PreferenceForm extends Component {
                     <label className="inline">Location: </label>
                     <input
                         type="text"
-                        value={this.state.preference.location}
-                        onChange={e => this.setState({ ...this.state, preference: { ...this.state.preference, location: e.target.value } })}
+                        value={this.state.preferences.location}
+                        onChange={e => this.setState({ ...this.state, preferences: { ...this.state.preferences, location: e.target.value } })}
                     />
                     <br/>
                     <label className="inline">Radius in meters: </label>
                     <input
                         type="text"
-                        value={this.state.preference.radius}
-                        onChange={e => this.setState({ ...this.state, preference: { ...this.state.preference, radius: e.target.value } })}
+                        value={this.state.preferences.radius}
+                        onChange={e => this.setState({ ...this.state, preferences: { ...this.state.preferences, radius: e.target.value } })}
                     />
                     <br/>
                     <label className="inline">Start: </label>
-                    <input type="datetime-local" name="dateTime" value={this.state.preference.date.start} onChange={e => this.setState({ ...this.state, preference: { ...this.state.preference, date: { ...this.state.preference.date, start: e.target.value } } })} min={this.getCurrDate()} max={this.getCurrDate('-', 1)}/>
+                    <input type="datetime-local" name="dateTime" value={this.state.preferences.date.start} onChange={e => this.setState({ ...this.state, preferences: { ...this.state.preferences, date: { ...this.state.preferences.date, start: e.target.value } } })} min={this.getCurrDate()} max={this.getCurrDate('-', 1)}/>
                     <br/>
                     <label className="inline">End: </label>
-                    <input type="datetime-local" name="dateTime" value={this.state.preference.date.end} onChange={e => this.setState({ ...this.state, preference: { ...this.state.preference, date: { ...this.state.preference.date, end: e.target.value } } })}
+                    <input type="datetime-local" name="dateTime" value={this.state.preferences.date.end} onChange={e => this.setState({ ...this.state, preferences: { ...this.state.preferences, date: { ...this.state.preferences.date, end: e.target.value } } })}
                         min={this.getCurrDate()} max={this.getCurrDate('-', 1)}/>
                     <Row>
                        <Col>
-                            <label htmlFor="preference">Favorite foods: </label>
+                            <label htmlFor="preferences">Favorite foods: </label>
                             <br/>
                             <textarea
                                 type="text"
-                                name="preference"
+                                name="preferences"
                                 cols="30"
                                 rows="6"
-                                value={this.state.preference.food}
-                                onChange={this.handleChange}
+                                value={this.state.preferences.food}
+                                onChange={e => this.setState({ ...this.state, preferences: { ...this.state.preferences, food: e.target.value } })}
                             />
                        </Col>
                        <Col>
-                            <label htmlFor="preference">Favorite activities: </label>
+                            <label htmlFor="preferences">Favorite activities: </label>
                             <br/>
                             <textarea
                                 type="text"
-                                name="preference"
+                                name="preferences"
                                 cols="30"
                                 rows="6"
-                                value={this.state.preference.activities}
-                                onChange={this.handleChange}
+                                value={this.state.preferences.activities}
+                                onChange={e => this.setState({ ...this.state, preferences: { ...this.state.preferences, activities: e.target.value } })}
                             />
                             <br/>
                    </Col>
