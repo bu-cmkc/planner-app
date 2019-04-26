@@ -109,10 +109,10 @@ export default class Eventbrite extends Component {
                             <label>Location Name:  </label>
                             <input type="text" className="form-control" value={this.state.name}  onChange={this.onChangeHostName}/>
                         </div>
-                        <div className="form-group">
+                        {/* <div className="form-group">
                             <label>Food Preferences: </label>
                             <input type="text" className="form-control" value={this.state.port}  onChange={this.onChangePort}/>
-                        </div>
+                        </div> */}
                         <div className="form-group">
                             <input type="submit" value="Add Node server" className="btn btn-primary"/>
                         </div>
@@ -140,7 +140,7 @@ const Format = ({data}) => (
       {data.map(dat => (
         <div className="" key={dat[0]}>
             <p>{dat[1]}</p>
-            <p>{dat[2]}</p>
+            <a href={dat[2]} target="_blank">{dat[2]}</a>
             <hr></hr>
         </div>
       ))}
@@ -151,7 +151,7 @@ function formatRes(r) {
     var resArr = []
     for (var i = 0; i < 5; i++) {
         // console.log(r[i]['name']['text'])
-        resArr.push([r[i]['id'], r[i]['name']['text'], r[i]['resource_uri']])
+        resArr.push([r[i]['id'], r[i]['name']['text'], r[i]['url']])
     }
     return resArr;
 }
