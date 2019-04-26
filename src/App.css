@@ -43,17 +43,18 @@ label.inline {
   color: #61dafb;
 }
 
-.Logo {
-  background-image: url(https://via.placeholder.com/30);
-}
-.navbar-brand {
+.navbar-logo {
   display: flex;
   align-items: center;
 }
-.navbar-brand img {
+.navbar-logo img {
   /* padding: 7px 14px; */
-  width: 30px;
+  width: 70px;
   height: auto;
+  margin-top: -7px;
+}
+.nav-item {
+  font-size: 20px;
 }
 @keyframes App-logo-spin {
   from {
