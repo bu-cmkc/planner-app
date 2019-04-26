@@ -18,6 +18,44 @@ const port = process.env.PORT || 8080
 router.get('/api/hello', (req, res) => {
   res.send({ express: 'Hello From Express' });
 });
+router.get('/api/check', (req, res) => {
+    axios
+    .get('/auth/user')
+    .then(response => {
+        res.send(response);
+    });
+ });
+router.post('/api/schedules', (req, res) => {
+        axios
+        .get('/auth/user')
+        .then(response => {
+            console.log(response)
+        });
+  
+  const yelp = require('yelp-fusion');
+  const apiKey = require('/config/api').YELP_KEY;
+  const searchRequest = {
+    location: req.body['postLocation'],
+    radius: req.body['postRadius'],
+    categories: req.body['postCategories'],
+    limit: 10,
+  };
+  const client = yelp.client(apiKey);
+
+  client.search(searchRequest).then(response => {
+    const firstResult = response.jsonBody.businesses[0];
+    const prettyJson = JSON.stringify(firstResult, null, 4);
+    // const prettyJson = JSON.stringify(response.jsonBody, null, 4);
+    // console.log('hi');
+    console.log(response.jsonBody.businesses[0]);
+    // console.log(prettyJson);
+    res.send(
+      response.jsonBody.businesses,
+    );
+  }).catch(e => {
+    console.log(e);
+  });
+});
 router.post('/api/world', (req, res) => {
   console.log(req.body);
   console.log(req.body['postTerm']);

@@ -110,6 +110,7 @@ if (process.env.NODE_ENV === 'production') {
 // === ROUTING === //
 app.use('/auth', require('./auth'))
 app.use('/api/prefs', require('./routes/api/prefs'));
+app.use('/api/schedule', require('./routes/api/schedule'));
 
 // === ERROR === //
 app.use(function(err, req, res, next) {

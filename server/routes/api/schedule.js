@@ -6,6 +6,7 @@ const passport = require('passport');
 // Pref Model
 const Pref = require('../../db/models/Pref');
 const User = require('../../db/models/user');
+const axios = require('axios');
 
 // function loggedIn(req, res, next) {
 //     if (req.user) {
@@ -16,26 +17,33 @@ const User = require('../../db/models/user');
 //     }
 // }
 
-// @route   GET api/prefs
-// @desc    Get All Items
-// @access  Public
 router.get('/', (req, res) => {
-  Pref.find()
-    .sort({ date: -1 })
-    .then(items => res.json(items));
+    async function getUser() {
+      try {
+          const response = await auth.get('/auth/user');
+        console.log(response);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getUser();
+ });
 
-  // User.find()
-  //       .then(user => res.json(user));
-});
+// @route   GET api/schedule
+// @desc    Get All Schedules
+// @access  Public
+// router.get('/', (req, res) => {
+//   Pref.find()
+//     .sort({ date: -1 })
+//     .then(items => res.json(items));
 
-router.get('/:id', (req, res) => {
-  Pref.findById(req.params.id)
-    .sort({ date: -1 })
-    .then(items => res.json(items));
-});
+//   // User.find()
+//   //       .then(user => res.json(user));
+// });
 
-// @route   POST api/prefs
-// @desc    Create An Pref
+
+// @route   POST api/schedule
+// @desc    Create A Schedule
 // @access  Private
 router.post('/', (req, res) => {
     const { preferences } = req.body;
