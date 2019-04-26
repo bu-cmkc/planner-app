@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import { Route, Link } from 'react-router-dom'
+
+
 // import logo from './logo.svg';
 import './App.css';
 
@@ -14,12 +16,14 @@ import YelpFusion from './components/YelpFusion';
 const DisplayLinks = props => {
 	if (props.loggedIn) {
 		return (
-			<nav className="navbar">
+			<nav className="navbar" bg="light" expand="lg">
 				<ul className="nav">
 					<li className="nav-item">
-						<Link to="/" className="nav-link">
+						{/* <Link to="/" className="nav-link">
+							<img src={logo} style={{width:100, marginTop: -7}} />
 							Home
-						</Link>
+						</Link> */}
+						<a href="#" className='navbar-brand'><img src="https://www.w3schools.com/images/w3schools_green.jpg"/></a>
 					</li>
 					<li className="nav-item">
                         <Link to="/addPreferences" className="nav-link">
@@ -38,6 +42,7 @@ const DisplayLinks = props => {
 					</li>
 				</ul>
 			</nav>
+			
 		)
 	} else {
 		return (

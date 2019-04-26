@@ -43,6 +43,18 @@ label.inline {
   color: #61dafb;
 }
 
+.Logo {
+  background-image: url(https://via.placeholder.com/30);
+}
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+.navbar-brand img {
+  /* padding: 7px 14px; */
+  width: 30px;
+  height: auto;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
