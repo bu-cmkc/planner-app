@@ -13,6 +13,7 @@ import SignupForm from './components/SignupForm';
 import Home from './components/Home';
 import PreferenceForm from './components/PreferenceForm';
 import YelpFusion from './components/YelpFusion';
+import Schedules from './components/Schedules';
 
 
 const DisplayLinks = props => {
@@ -27,6 +28,11 @@ const DisplayLinks = props => {
 							  <li class="nav-item">
 								<Link to="/addPreferences" className="nav-link">
 									 Preferences
+								 </Link>
+							  </li>
+							  <li class="nav-item">
+								<Link to="/schedules" className="nav-link">
+									Schedules
 								 </Link>
 							  </li>
 							  <li class="nav-item">
@@ -235,14 +241,8 @@ class App extends Component {
 					{/*  ROUTES */}
 					{/* <Route exact path="/" component={Home} /> */}
                     
-					<Route exact path="/yelpFusion" render={() => <YelpFusion
-                                                        handleSubmit={this.handleSubmit}
-                                                        stateResponse={this.state.response}
-                                                        statePostTerm={this.state.postTerm}
-                                                        setState={this.setState}
-                                                        statePostLocation={this.state.postLocation}
-                                                        stateResponsetopost={this.state.responsetopost}
-                                                        /> } />
+					<Route exact path="/yelpFusion" render={() => <YelpFusion /> } />
+					<Route exact path="/schedules" render={() => <Schedules /> } />
 
 					<Route exact path="/addPreferences" render={() => <PreferenceForm
                                                         loggedIn={this.state.loggedIn}

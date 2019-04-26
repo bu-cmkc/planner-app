@@ -41,8 +41,8 @@ function yelp(res, prefs) {
         const prettyJson = JSON.stringify(firstResult, null, 4);
         // const prettyJson = JSON.stringify(response.jsonBody, null, 4);
         // console.log('hi');
-        console.log(response.jsonBody.businesses[0]);
-        console.log(response.jsonBody);
+        // console.log(response.jsonBody.businesses[0]);
+        // console.log(response.jsonBody);
         // console.log(prettyJson);
         res.send(
           response.jsonBody.businesses,
