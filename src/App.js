@@ -19,8 +19,10 @@ const DisplayLinks = props => {
 	if (props.loggedIn) {
 		return (
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  				<a href="#" className='navbar-logo'><img src={require("./SP_logo.png")}/></a>
-  				{/* <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+				<Link to="/" className="navbar-logo">
+					<img src={require("./SP_logo.png")}/>
+			 	</Link>  
+				  {/* <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
   			  		<span class="navbar-toggler-icon"></span>
   				</button> */}
   				<div class="collapse navbar-collapse" id="navbarText">
@@ -49,27 +51,11 @@ const DisplayLinks = props => {
 		)
 	} else {
 		return (
-			// <nav className="navbar">
-			// 	<ul className="nav">
-			// 		<li className="nav-item">
-			// 			<Link to="/" className="nav-link">
-			// 				Home
-			// 			</Link>
-			// 		</li>
-			// 		<li className="nav-item">
-			// 			<Link to="/login" className="nav-link">
-			// 				login
-			// 			</Link>
-			// 		</li>
-			// 		<li className="nav-item">
-			// 			<Link to="/signup" className="nav-link">
-			// 				sign up
-			// 			</Link>
-			// 		</li>
-			// 	</ul>
-			// </nav>
+			
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  				<a href="#" className='navbar-logo'><img src={require("./SP_logo.png")}/></a>
+  				<Link to="/" className="navbar-logo">
+					<img src={require("./SP_logo.png")}/>
+			 	</Link>  
   				{/* <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
   			  		<span class="navbar-toggler-icon"></span>
   				</button> */}
