@@ -22,10 +22,7 @@ const DisplayLinks = props => {
 					<Link to="/" className="navbar-logo">
 						<img src={require("./SP_logo.png")}/>
 					 </Link>  
-					  {/* <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-							<span class="navbar-toggler-icon"></span>
-					  </button> */}
-					  <div class="navbar-collapse" id="navbarText">
+					  <div class="navbar" id="navbarText">
 							<ul class="navbar-nav mr-auto">
 							  <li class="nav-item">
 								<Link to="/addPreferences" className="nav-link">
@@ -56,10 +53,8 @@ const DisplayLinks = props => {
 					  <Link to="/" className="navbar-logo">
 						<img src={require("./SP_logo.png")}/>
 					 </Link>  
-					  {/* <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-							<span class="navbar-toggler-icon"></span>
-					  </button> */}
-					  <div class="collapse navbar-collapse" id="navbarText">
+
+					  <div class="navbar" id="navbarText">
 							<ul class="navbar-nav mr-auto">
 							  <li class="nav-item">
 								  <Link to="/login" className="nav-link">
