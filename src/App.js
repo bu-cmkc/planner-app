@@ -14,6 +14,7 @@ import Home from './components/Home';
 import PreferenceForm from './components/PreferenceForm';
 import YelpFusion from './components/YelpFusion';
 import Schedules from './components/Schedules';
+import Eventbrite from './components/Eventbrite';
 
 
 const DisplayLinks = props => {
@@ -38,6 +39,11 @@ const DisplayLinks = props => {
 							  <li class="nav-item">
 								<Link to="/yelpFusion" className="nav-link">
 									Yelp Fusion
+								 </Link>
+							  </li>
+							  <li class="nav-item">
+								<Link to="/eventbrite" className="nav-link">
+									Eventbrite
 								 </Link>
 							  </li>
 							  <li class="nav-item">
@@ -242,6 +248,7 @@ class App extends Component {
 					{/* <Route exact path="/" component={Home} /> */}
                     
 					<Route exact path="/yelpFusion" render={() => <YelpFusion /> } />
+					<Route exact path="/eventbrite" render={() => <Eventbrite /> } />
 					<Route exact path="/schedules" render={() => <Schedules /> } />
 
 					<Route exact path="/addPreferences" render={() => <PreferenceForm
