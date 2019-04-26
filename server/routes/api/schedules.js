@@ -44,9 +44,26 @@ function yelp(res, prefs) {
         // console.log(response.jsonBody.businesses[0]);
         // console.log(response.jsonBody);
         // console.log(prettyJson);
-        res.send(
-          response.jsonBody.businesses,
-        );
+        let businessesNoTimes = Array.from(response.jsonBody.businesses);
+        let keys = Object.keys(businessesNoTimes)
+        let businessNames = [];
+        // businessesNoTimes.map(business => console.log(business.name))
+        // keys.map((i) => businessesWithTimes.push(businessesNoTimes[i].id))
+        function sleep(ms) {
+              return new Promise(resolve => setTimeout(resolve, ms));
+        }
+        async function getAllBusinessDetails() {
+          let businessesWithTimes = [];
+          for (var i = 0, len = keys.length; i < len; i++) {
+              await sleep(400);
+              client.business(businessesNoTimes[keys[i]].id).then(response => businessesWithTimes.push(response.jsonBody)).catch(e => console.log(e)) 
+          }
+          res.send(businessesWithTimes);
+        }
+        getAllBusinessDetails();
+        // keys.map((i) => client.business(businessesNoTimes[i].id).then(res => businessesWithTimes.push(res)).catch(e => { console.log(e) }))
+        // keys.map((i) => businessesNoTimes[i].map(business => businessesWithTimes.push(business)))
+        // res.send(businessesWithTimes);
       }).catch(e => {
         console.log(e);
     });
