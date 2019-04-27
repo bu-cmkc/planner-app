@@ -16,6 +16,7 @@ class Schedules extends Component {
 		};
 	    this.printSchedules = this.printSchedules.bind(this);
 	}
+
     componentDidMount() {
         this.getSchedules();
     }

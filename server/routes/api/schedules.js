@@ -39,16 +39,9 @@ function yelp(res, prefs) {
       client.search(searchRequest).then(response => {
         const firstResult = response.jsonBody.businesses[0];
         const prettyJson = JSON.stringify(firstResult, null, 4);
-        // const prettyJson = JSON.stringify(response.jsonBody, null, 4);
-        // console.log('hi');
-        // console.log(response.jsonBody.businesses[0]);
-        // console.log(response.jsonBody);
-        // console.log(prettyJson);
         let businessesNoTimes = Array.from(response.jsonBody.businesses);
         let keys = Object.keys(businessesNoTimes)
         let businessNames = [];
-        // businessesNoTimes.map(business => console.log(business.name))
-        // keys.map((i) => businessesWithTimes.push(businessesNoTimes[i].id))
         function sleep(ms) {
               return new Promise(resolve => setTimeout(resolve, ms));
         }
@@ -61,9 +54,6 @@ function yelp(res, prefs) {
           res.send(businessesWithTimes);
         }
         getAllBusinessDetails();
-        // keys.map((i) => client.business(businessesNoTimes[i].id).then(res => businessesWithTimes.push(res)).catch(e => { console.log(e) }))
-        // keys.map((i) => businessesNoTimes[i].map(business => businessesWithTimes.push(business)))
-        // res.send(businessesWithTimes);
       }).catch(e => {
         console.log(e);
     });
@@ -72,17 +62,16 @@ function yelp(res, prefs) {
 router.get('/', (req, res) => {
     if (req.user) {
         Pref.find({user_id:req.user._id})
-            .sort({ date: -1 })
-            .then(items => 
-                yelp(res, items)
+            .then(prefs => 
+                yelp(res, prefs)
             );
     } else {
         return res.json({ user: null })
     }
 });
 
-// @route   GET api/schedule
-// @desc    Get All Schedules
+// @route   GET api/schedules
+// @desc    Get All schedules
 // @access  Public
 // router.get('/', (req, res) => {
 //   Pref.find()
@@ -94,23 +83,34 @@ router.get('/', (req, res) => {
 // });
 
 
-// @route   POST api/schedule
-// @desc    Create A Schedule
+// @route   POST api/schedules
+// @desc    Create schedule
 // @access  Private
-router.post('/', (req, res) => {
-    const { preferences } = req.body;
-    const { user_id } = req.body;
-    console.log(user_id);
+// router.post('/', (req, res) => {
+//     const { preferences } = req.body;
+//     const { user_id } = req.body;
+//     console.log(user_id);
 
-    // loggedIn, function (lreq, lres, next) {
-    const newPref = new Pref({
-      preferences: preferences, 
-      user_id: user_id
-    })
-    newPref.save().then(Pref => res.json(Pref))
-    .catch(err => console.log(err));
-    // }
-});
+//     const newPref = new Pref({
+//       preferences: preferences, 
+//       user_id: user_id
+//     })
+//     newPref.save().then(Pref => res.json(Pref))
+//     .catch(err => console.log(err));
+//     // }
+// });
+
+
+// @route  PUT api/schedules
+// @desc   Update schedule
+// @access Public
+// router.post('/', (req, res) => {
+//     const newItem = new Model({
+//        name: req.body.name
+//     });
+
+//     newItem.save().then(item => res.json(item));
+// });
 
 // @route   DELETE api/items/:id
 // @desc    Delete A Pref

@@ -27,7 +27,7 @@ const DisplayLinks = props => {
 					  <div class="navbar" id="navbarText">
 							<ul class="navbar-nav mr-auto">
 							  <li class="nav-item">
-								<Link to="/addPreferences" className="nav-link">
+								<Link to="/preferences" className="nav-link">
 									 Preferences
 								 </Link>
 							  </li>
@@ -242,7 +242,7 @@ class App extends Component {
 				<div className="App">
 					{/* LINKS to our different 'pages' */}
 					<DisplayLinks _logout={this._logout} loggedIn={this.state.loggedIn} />
-					<h1>Planner App</h1>
+					<h1>Smarter Planner</h1>
 					
 					{/*  ROUTES */}
 					{/* <Route exact path="/" component={Home} /> */}
@@ -251,7 +251,7 @@ class App extends Component {
 					<Route exact path="/eventbrite" render={() => <Eventbrite /> } />
 					<Route exact path="/schedules" render={() => <Schedules /> } />
 
-					<Route exact path="/addPreferences" render={() => <PreferenceForm
+					<Route exact path="/preferences" render={() => <PreferenceForm
                                                         loggedIn={this.state.loggedIn}
                                                         _user={this.state.user}
                                                         /> } />

@@ -27,11 +27,42 @@ class PreferenceForm extends Component {
                 }
             },
 			user_id: '',
+			has_data: 1,
 			redirectTo: null,
 		};
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 	}
+
+    componentDidMount() {
+       this.getCurrPrefs(); 
+    }
+
+    getCurrPrefs = async () => {
+        if (!this.state.preferences) {
+           console.log("not yet") 
+        }
+        await axios
+            .get('/api/prefs')
+            .then(currPrefs => {
+                if (currPrefs.data) {
+                    let currPrefData = currPrefs.data[0];
+                    console.log(currPrefData);
+                    this.setState({
+                        preferences: currPrefData.preferences[0],
+                        user_id: this.props._user._id,
+                        has_data: 1
+                        });
+                } else {
+                    // has no starting data
+                    this.setState({
+                        ...this.state,
+                        has_data:0
+                    });
+                }
+            })
+            .catch(err => console.log(err));
+    };
 
     getCurrDate(separator='-', yearOffset=0) {
         let date = new Date();
@@ -57,90 +88,106 @@ class PreferenceForm extends Component {
             event.preventDefault()
 
             // TODO - validate!
+            // put response always times out. 
+            // Instead of waiting long, just timeout after 1 ms
 
-            this.props.pref = this.state.preferences;
-            console.log({ preferences: this.props.pref });
-            axios
-                .post('/api/prefs', {
+            let putCurrState = async () => {
+                axios
+                .put('/api/prefs', {
                     preferences: this.state.preferences,
                     user_id: this.props._user._id
-                })
-                .then(response => {
-                    console.log(response)
-                    if (!response.data.errmsg) {
-                        console.log('youre good')
-                        this.setState({
-                            redirectTo: '/api/prefs'
-                        })
-                    } else {
-                        console.log('duplicate')
-                    }
-            });
+                }).catch(e => console.log(e))
+            }
+
+            setTimeout(putCurrState, 0)
+            this.setState({
+                redirectTo: '/schedules'
+            })
+                // .then(response => {
+                //     if (!response.data.errmsg) {
+                //         console.log('youre good')
+                //         this.setState({
+                //             redirectTo: '/api/prefs'
+                //         })
+                //     } else {
+                //         console.log('duplicate')
+                //     }
+                // }).catch(err => console.log(err));
         }
 	}
 	render(props) {
 		if (this.state.redirectTo) {
 			return <Redirect to={{ pathname: this.state.redirectTo }} />
-		}
-		return (
-            <Container className="PrefForm">
-                <h5>
-                    Enter your comma-separated preferences from most favorite to least favorite!
-                </h5>
-                <form onSubmit={this.props.handleSubmit}>
-                    <label className="inline">Location: </label>
-                    <input
-                        type="text"
-                        value={this.state.preferences.location}
-                        onChange={e => this.setState({ ...this.state, preferences: { ...this.state.preferences, location: e.target.value } })}
-                    />
-                    <br/>
-                    <label className="inline">Radius in meters: </label>
-                    <input
-                        type="text"
-                        value={this.state.preferences.radius}
-                        onChange={e => this.setState({ ...this.state, preferences: { ...this.state.preferences, radius: e.target.value } })}
-                    />
-                    <br/>
-                    <label className="inline">Start: </label>
-                    <input type="datetime-local" name="dateTime" value={this.state.preferences.date.start} onChange={e => this.setState({ ...this.state, preferences: { ...this.state.preferences, date: { ...this.state.preferences.date, start: e.target.value } } })} min={this.getCurrDate()} max={this.getCurrDate('-', 1)}/>
-                    <br/>
-                    <label className="inline">End: </label>
-                    <input type="datetime-local" name="dateTime" value={this.state.preferences.date.end} onChange={e => this.setState({ ...this.state, preferences: { ...this.state.preferences, date: { ...this.state.preferences.date, end: e.target.value } } })}
-                        min={this.getCurrDate()} max={this.getCurrDate('-', 1)}/>
-                    <Row>
-                       <Col>
-                            <label htmlFor="preferences">Favorite foods: </label>
-                            <br/>
-                            <textarea
-                                type="text"
-                                name="preferences"
-                                cols="30"
-                                rows="6"
-                                value={this.state.preferences.food}
-                                onChange={e => this.setState({ ...this.state, preferences: { ...this.state.preferences, food: e.target.value } })}
-                            />
+        }
+        // Render if not loading database preferences OR starting with no data
+        if (this.state.preferences.food || this.state.has_data == 0) {
+            return (
+                <Container className="PrefForm">
+                    <h5>
+                        Enter your comma-separated preferences from most favorite to least favorite!
+                    </h5>
+                    <form onSubmit={this.props.handleSubmit}>
+                        <label className="inline">Location: </label>
+                        <input
+                            type="text"
+                            value={this.state.preferences.location}
+                            onChange={e => this.setState({ ...this.state, preferences: { ...this.state.preferences, location: e.target.value } })}
+                        />
+                        <br/>
+                        <label className="inline">Radius in meters: </label>
+                        <input
+                            type="text"
+                            value={this.state.preferences.radius}
+                            onChange={e => this.setState({ ...this.state, preferences: { ...this.state.preferences, radius: e.target.value } })}
+                        />
+                        <br/>
+                        <label className="inline">Start: </label>
+                        <input type="datetime-local" name="dateTime" value={this.state.preferences.date.start} onChange={e => this.setState({ ...this.state, preferences: { ...this.state.preferences, date: { ...this.state.preferences.date, start: e.target.value } } })} min={this.getCurrDate()} max={this.state.preferences.end}/>
+                        <br/>
+                        <label className="inline">End: </label>
+                        <input type="datetime-local" name="dateTime" value={this.state.preferences.date.end} onChange={e => this.setState({ ...this.state, preferences: { ...this.state.preferences, date: { ...this.state.preferences.date, end: e.target.value } } })}
+                            min={this.state.preferences.date.start} max={this.getCurrDate('-', 1)}/>
+                        <Row>
+                           <Col>
+                                <label htmlFor="preferences">Favorite foods: </label>
+                                <br/>
+                                <textarea
+                                    type="text"
+                                    name="preferences"
+                                    cols="30"
+                                    rows="6"
+                                    value={this.state.preferences.food}
+                                    onChange={e => this.setState({ ...this.state, preferences: { ...this.state.preferences, food: e.target.value } })}
+                                />
+                           </Col>
+                           <Col>
+                                <label htmlFor="preferences">Favorite activities: </label>
+                                <br/>
+                                <textarea
+                                    type="text"
+                                    name="preferences"
+                                    cols="30"
+                                    rows="6"
+                                    value={this.state.preferences.activities}
+                                    onChange={e => this.setState({ ...this.state, preferences: { ...this.state.preferences, activities: e.target.value } })}
+                                />
+                                <br/>
                        </Col>
-                       <Col>
-                            <label htmlFor="preferences">Favorite activities: </label>
-                            <br/>
-                            <textarea
-                                type="text"
-                                name="preferences"
-                                cols="30"
-                                rows="6"
-                                value={this.state.preferences.activities}
-                                onChange={e => this.setState({ ...this.state, preferences: { ...this.state.preferences, activities: e.target.value } })}
-                            />
-                            <br/>
-                   </Col>
-                        <button className="btn btn-dark prefButton"
-                                onClick={this.handleSubmit}>Submit! <FontAwesomeIcon icon="user-friends" /></button>
-                </Row>
-            </form>
-            </Container>
-		);
-	}
+                            <button className="btn btn-dark prefButton"
+                                    onClick={this.handleSubmit}>Submit! <FontAwesomeIcon icon="user-friends" /></button>
+                    </Row>
+                </form>
+                </Container>
+            );
+        } else {
+            return(
+                <div>
+                    Loading current preferences...
+                </div>
+            )
+        }
+    }
+	    
 }
 
 

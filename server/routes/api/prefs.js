@@ -16,22 +16,13 @@ const User = require('../../db/models/user');
 //     }
 // }
 
-// @route   GET api/prefs
-// @desc    Get All Items
-// @access  Public
 router.get('/', (req, res) => {
-  Pref.find()
-    .sort({ date: -1 })
-    .then(items => res.json(items));
-
-  // User.find()
-  //       .then(user => res.json(user));
-});
-
-router.get('/:id', (req, res) => {
-  Pref.findById(req.params.id)
-    .sort({ date: -1 })
-    .then(items => res.json(items));
+    if (req.user) {
+        Pref.find({user_id:req.user._id})
+            .then(prefs => res.json(prefs));
+    } else {
+        return res.json({ user: null })
+    }
 });
 
 // @route   POST api/prefs
@@ -49,6 +40,29 @@ router.post('/', (req, res) => {
     })
     newPref.save().then(Pref => res.json(Pref))
     .catch(err => console.log(err));
+    // }
+});
+
+// @route  PUT api/schedules
+// @desc   Update schedule
+// @access Public
+router.put('/', (req, res) => {
+    const { preferences } = req.body;
+    const { user_id } = req.body;
+    console.log("sup");
+
+    // loggedIn, function (lreq, lres, next) {
+    const newPref = {
+      preferences: preferences, 
+      user_id: user_id
+    }
+    //{upsert:true} creates pref if doesn't exist
+    Pref.findOneAndUpdate({user_id: user_id}, newPref, {upsert:true}, function (err, doc) {
+        if (err) {
+            console.log(err);
+        }
+    }).catch(e => console.log(e))
+
     // }
 });
 
