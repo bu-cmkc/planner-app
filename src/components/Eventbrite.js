@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-const yelp = require('yelp-fusion');
-const apiKey = 'QDgDC978iTKi0REpCdl57wm7cj4GdR39pshHcOa1xH2lllBJWAuISYhUnKncrOeZQss43zLgOPzxuD3PlNcgacLIbJmOm5-7ZXQrTmIq5nDZj2Ed_zR6BQkHhDOVXHYx'
-const client = yelp.client(apiKey);
+
 
 export default class Eventbrite extends Component {
 
@@ -20,18 +18,7 @@ export default class Eventbrite extends Component {
             res: null,
         }
     }
-    // componentDidMount() {
-    //     const EB_URL = "https://www.eventbriteapi.com/v3/events/search/?location.address=boston+ma&start_date.keyword=this_week&token=MXFC7Q2DBU5DPHI4VZZ4";
-    //     axios.get(EB_URL)
-    //         .then(res => {
-    //             console.log(res);
-    //             console.log(res.data);
-    //             this.setState({
-    //                 res: res.data,
-    //             })
-    //             // this.state.res = res.data;
-    //         })
-    // }
+    
     onChangeHostName(e) {
         this.setState({
             name: e.target.value
@@ -69,7 +56,8 @@ export default class Eventbrite extends Component {
         //     name: '',
         //     port: ''
         // });
-        const EB_URL = "https://www.eventbriteapi.com/v3/events/search/?location.address=" + this.state.name + "&start_date.keyword=this_week&token=MXFC7Q2DBU5DPHI4VZZ4";
+        const eb_key = require('../../../config/api').EVENTBRITE_KEY;
+        const EB_URL = "https://www.eventbriteapi.com/v3/events/search/?location.address=" + this.state.name + "&start_date.keyword=this_week&token=" + eb_key;
         axios.get(EB_URL)
         .then(res => {
             console.log(res);
@@ -79,24 +67,25 @@ export default class Eventbrite extends Component {
                 res: formatRes(res.data.events)
             })
         });
-        const searchRequest = {
-            term: this.state.food,
-            location: this.state.location  
-        };
-
-        const proxyurl = "https://cors-anywhere.herokuapp.com/";
-        const url = 'https://api.liveconnect.in/backend/web/erpsync/get-all-orders?data=dbCode=UAT04M%7Cidx=100%7CuserId=6214%7Cres_format=1'; // site that doesn’t send Access-Control-*
-        fetch(proxyurl + url).then((resp) => resp.json())
-        
-        client.search(searchRequest).then(response => {
-            const firstResult = response.jsonBody.businesses[0];
-            // const prettyJson = JSON.stringify(firstResult, null, 4);
-            const prettyJson = JSON.stringify(response.jsonBody, null, 4);
-            console.log(prettyJson);
-          }).catch(e => {
-            console.log(e);
-          });
     }
+    //     const searchRequest = {
+    //         term: this.state.food,
+    //         location: this.state.location  
+    //     };
+
+    //     const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    //     const url = 'https://api.liveconnect.in/backend/web/erpsync/get-all-orders?data=dbCode=UAT04M%7Cidx=100%7CuserId=6214%7Cres_format=1'; // site that doesn’t send Access-Control-*
+    //     fetch(proxyurl + url).then((resp) => resp.json())
+        
+    //     client.search(searchRequest).then(response => {
+    //         const firstResult = response.jsonBody.businesses[0];
+    //         // const prettyJson = JSON.stringify(firstResult, null, 4);
+    //         const prettyJson = JSON.stringify(response.jsonBody, null, 4);
+    //         console.log(prettyJson);
+    //       }).catch(e => {
+    //         console.log(e);
+    //       });
+    // }
     
 
     render() {

@@ -31,6 +31,8 @@ class Schedules extends Component {
             });
             console.log(this.state.businesses);
         })
+
+
     };
 
     printSchedules() {

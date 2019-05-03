@@ -60,11 +60,37 @@ function yelp(res, prefs) {
     });
 }
 
+function eventbrite (res, prefs) {
+    // save pref as variables
+    const preferences = prefs[0];
+    const activities = preferences.preferences[0].activities;
+    const location = preferences.preferences[0].location;
+    const start_date = preferences.preferences[0].date.start;
+    const end_date = preferences.preferences[0].date.end;
+    const radius = preferences.preferences[0].radius / 1000;
+
+    // Eventbrite API
+    const eb_key = require('../../../config/api').EVENTBRITE_KEY;
+    const EB_URL = "https://www.eventbriteapi.com/v3/events/search/?q=" + activities + "&location.address=" + location + "&location.within=" + radius + "km" + "&start_date.keyword=" + start_date + "&end_date.keyword=" + end_date +"&token=" + eb_key;
+    
+    axios.get(EB_URL)
+    .then(res => {
+        console.log(res);
+        console.log(res.data);
+        res.send(res.data)
+    }).catch(e => {
+        console.log(e);
+    });
+    
+}
+
 router.get('/', (req, res) => {
     if (req.user) {
         Pref.find({user_id:req.user._id})
             .then(prefs => 
-                yelp(res, prefs)
+                yelp(res, prefs),
+                
+                // eventbrite(res, prefs)
             );
     } else {
         return res.json({ user: null })
