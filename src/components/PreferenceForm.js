@@ -28,7 +28,7 @@ class PreferenceForm extends Component {
             },
             schedule: {},
 			user_id: '',
-			has_data: 1,
+			has_data: 0,
 			redirectTo: null,
 		};
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -58,9 +58,9 @@ class PreferenceForm extends Component {
                     /* handle error */
                     // has no starting data
                     this.setState({
-                        ...this.state,
-                        has_data:0
+                        has_data: 1
                     });
+                    console.log(e)
                 }
             })
             .catch(err => console.log(err));
@@ -144,7 +144,7 @@ class PreferenceForm extends Component {
 			return <Redirect to={{ pathname: this.state.redirectTo }} />
         }
         // Render if not loading database preferences OR starting with no data
-        if (this.state.preferences.food || this.state.has_data == 0) {
+        if (this.state.has_data == 1) {
             return (
                 <Container className="PrefForm">
                     <h5>

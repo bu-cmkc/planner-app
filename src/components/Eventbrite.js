@@ -56,7 +56,7 @@ export default class Eventbrite extends Component {
         //     name: '',
         //     port: ''
         // });
-        const eb_key = require('../../../config/api').EVENTBRITE_KEY;
+        const eb_key = require('../config/api').EVENTBRITE_KEY;
         const EB_URL = "https://www.eventbriteapi.com/v3/events/search/?location.address=" + this.state.name + "&start_date.keyword=this_week&token=" + eb_key;
         axios.get(EB_URL)
         .then(res => {
