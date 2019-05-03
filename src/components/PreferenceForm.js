@@ -46,7 +46,7 @@ class PreferenceForm extends Component {
         await axios
             .get('/api/prefs')
             .then(currPrefs => {
-                if (currPrefs.data) {
+                try {
                     let currPrefData = currPrefs.data[0];
                     console.log(currPrefData);
                     this.setState({
@@ -54,7 +54,8 @@ class PreferenceForm extends Component {
                         user_id: this.props._user._id,
                         has_data: 1
                         });
-                } else {
+                } catch (e) {
+                    /* handle error */
                     // has no starting data
                     this.setState({
                         ...this.state,

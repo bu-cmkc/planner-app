@@ -74,7 +74,7 @@ app.post('/api/world', (req, res) => {
   const searchRequest = {
     term: req.body['postTerm'],
     location: req.body['postLocation'],
-    limit: 10,
+    limit: 2,
   };
   const client = yelp.client(apiKey);
 

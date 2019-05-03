@@ -33,7 +33,7 @@ function yelp(res, prefs) {
         location: location,
         radius: Number(radius),
         categories: food,
-        limit: 10,
+        limit: 2,
       };
       const client = yelp.client(apiKey);
 
