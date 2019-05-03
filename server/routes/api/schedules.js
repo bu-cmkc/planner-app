@@ -5,6 +5,7 @@ const passport = require('passport');
 
 // Pref Model
 const Pref = require('../../db/models/Pref');
+const Schedule = require('../../db/models/Schedule');
 const User = require('../../db/models/user');
 const axios = require('axios');
 
@@ -87,15 +88,15 @@ router.get('/', (req, res) => {
 // @desc    Create schedule
 // @access  Private
 // router.post('/', (req, res) => {
-//     const { preferences } = req.body;
+//     const { schedule } = req.body;
 //     const { user_id } = req.body;
 //     console.log(user_id);
 
 //     const newPref = new Pref({
-//       preferences: preferences, 
+//       schedule: schedule, 
 //       user_id: user_id
 //     })
-//     newPref.save().then(Pref => res.json(Pref))
+//     newSchedule.save().then(Pref => res.json(Pref))
 //     .catch(err => console.log(err));
 //     // }
 // });
@@ -104,13 +105,20 @@ router.get('/', (req, res) => {
 // @route  PUT api/schedules
 // @desc   Update schedule
 // @access Public
-// router.post('/', (req, res) => {
-//     const newItem = new Model({
-//        name: req.body.name
-//     });
-
-//     newItem.save().then(item => res.json(item));
-// });
+router.put('/', (req, res) => {
+    const { schedule } = req.body;
+    const { user_id } = req.body;
+    const newSched = {
+      schedule: schedule, 
+      user_id: user_id
+    }
+    //{upsert:true} creates schedule if doesn't exist
+    Schedule.findOneAndUpdate({user_id: user_id}, newSched, {upsert:true}, function (err, doc) {
+        if (err) {
+            console.log(err);
+        }
+    }).catch(e => console.log(e))
+});
 
 // @route   DELETE api/items/:id
 // @desc    Delete A Pref

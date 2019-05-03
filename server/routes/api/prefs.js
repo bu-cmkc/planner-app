@@ -43,8 +43,8 @@ router.post('/', (req, res) => {
     // }
 });
 
-// @route  PUT api/schedules
-// @desc   Update schedule
+// @route  PUT api/prefs
+// @desc   Update prefs
 // @access Public
 router.put('/', (req, res) => {
     const { preferences } = req.body;

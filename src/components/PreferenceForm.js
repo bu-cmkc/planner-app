@@ -26,6 +26,7 @@ class PreferenceForm extends Component {
                     end: this.getCurrDate()
                 }
             },
+            schedule: {},
 			user_id: '',
 			has_data: 1,
 			redirectTo: null,
@@ -83,6 +84,20 @@ class PreferenceForm extends Component {
 			[event.target.name]: event.target.value
 		})
 	}
+
+    getSchedules = async () => {
+        await axios
+            .get('/api/schedules')
+            .then(response => {
+             let businesses = JSON.parse(response.request.response).map((t) => [{rating:t.rating, name:t.name, location:t.location, hours:t.hours}])
+            this.setState({
+                ...this.state,
+                schedule: Array.from(businesses)
+            });
+        })
+    };
+
+
 	handleSubmit(event) {
         if (this.props.loggedIn) {
             event.preventDefault()
@@ -91,15 +106,23 @@ class PreferenceForm extends Component {
             // put response always times out. 
             // Instead of waiting long, just timeout after 1 ms
 
-            let putCurrState = async () => {
-                axios
+            let putCurrPrefs = async () => {
+                await axios
                 .put('/api/prefs', {
                     preferences: this.state.preferences,
                     user_id: this.props._user._id
                 }).catch(e => console.log(e))
             }
 
-            setTimeout(putCurrState, 0)
+            let putCurrSched = async () => {
+                await axios
+                .put('/api/prefs', {
+                    preferences: this.state.schedule,
+                    user_id: this.props._user._id
+                }).catch(e => console.log(e))
+            }
+
+            setTimeout(putCurrPrefs, 0)
             this.setState({
                 redirectTo: '/schedules'
             })
