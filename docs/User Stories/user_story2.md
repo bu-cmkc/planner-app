@@ -10,8 +10,7 @@ In the application, user can set, edit and rank preferences by inputting the loc
 If the user hasn’t already done so, once logged in, the web app should prompt users to input and set their “Preferences” pertaining to trip location, types of activities, food type, and the trip duration. Their preferences will be sorted on a list of top 10 choices at the “Schedules” screen, connecting to both Yelp API and Eventbrite API. If want to add more preferences, user can go back to “Preferences” and add more by comma, and click the “Submit” button again.
 
 The page of “Preferences” will initially look like this: 
-![Alt text](../screenshots/preferences.png)
-
-The user may input the data in this format:
 ![Alt text](../screenshots/preferences_orig.png)
 
+The user may input the data in this format:
+![Alt text](../screenshots/preferences.png)
