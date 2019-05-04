@@ -29,6 +29,7 @@ class PreferenceForm extends Component {
             schedule: {},
 			user_id: '',
 			has_data: 0,
+			got_schedule: 0,
 			redirectTo: null,
 		};
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -86,18 +87,6 @@ class PreferenceForm extends Component {
 		})
 	}
 
-    getSchedules = async () => {
-        await axios
-            .get('/api/schedules')
-            .then(response => {
-             let businesses = JSON.parse(response.request.response).map((t) => [{rating:t.rating, name:t.name, location:t.location, hours:t.hours}])
-            this.setState({
-                ...this.state,
-                schedule: Array.from(businesses)
-            });
-        })
-    };
-
 
 	handleSubmit(event) {
         if (this.props.loggedIn) {
@@ -113,19 +102,48 @@ class PreferenceForm extends Component {
                     preferences: this.state.preferences,
                     user_id: this.props._user._id
                 }).catch(e => console.log(e))
+                await getSchedules()
+            }
+
+            let getSchedules = async () => {
+                await axios
+                    .get('/api/schedules')
+                    .then(response => {
+                    let businesses = JSON.parse(response.request.response).map((t) => [{rating:t.rating, name:t.name, location:t.location, hours:t.hours}])
+                    this.setState({
+                        ...this.state,
+                        schedule: Array.from(businesses),
+                        got_schedule: 1
+                    });
+                })
+            };
+            function sleep(ms) {
+                  return new Promise(resolve => setTimeout(resolve, ms));
             }
 
             let putCurrSched = async () => {
-                await axios
-                .put('/api/prefs', {
-                    preferences: this.state.schedule,
-                    user_id: this.props._user._id
-                }).catch(e => console.log(e))
+                if (this.state.got_schedule == 1) {
+                    console.log("YOOO");
+                    console.log(this.state.schedule);
+                    console.log(Array.from(this.state.schedule[0][0]));
+                    axios
+                    .put('/api/schedules', {
+                        schedule: Array.from(this.state.schedule[0][0]),
+                        user_id: this.props._user._id
+                    }).catch(e => console.log(e))
+                } else {
+                    await sleep(300);
+                }
             }
 
-            setTimeout(putCurrPrefs, 0)
+            let putAll = async () => {
+                await setTimeout(putCurrPrefs, 800)
+                await setTimeout(putCurrSched, 1000)
+            }
+
+            setTimeout(putAll, 0)
             this.setState({
-                redirectTo: '/schedules'
+                // redirectTo: '/schedules'
             })
                 // .then(response => {
                 //     if (!response.data.errmsg) {

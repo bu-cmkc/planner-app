@@ -56,7 +56,7 @@ class Schedules extends Component {
 
     printYelpSchedules() {
         let keys = Object.keys(this.state.businesses)
-        return ( keys.map((i) =>  <div>{this.state.businesses[i][0].name} ({this.state.businesses[i][0].rating}) ({this.state.businesses[i][0].hours[0].open[0].start}, {this.state.businesses[i][0].hours[0].open[0].end})</div>) )
+        return ( keys.map((i) =>  <div>{this.state.businesses[i][0].name} (rating: {this.state.businesses[i][0].rating}) Monday: (open: {this.state.businesses[i][0].hours[0].open[0].start}, close: {this.state.businesses[i][0].hours[0].open[0].end})</div>) )
         
     }
     printEventbriteSchedules() {
@@ -75,12 +75,12 @@ class Schedules extends Component {
                 
                 <div id="schedule">
                     <div id="businesses">
-                        <h3 style={{fontSize:20}}>Food</h3>
+                        <h3 style={{fontSize:20}}><b><u>Food</u></b></h3>
                         {this.printYelpSchedules()}
-            
+                        <br/> 
                     </div>
                     <div id="events">
-                        <h3 style={{fontSize:20}}>Activities</h3>
+                        <h3 style={{fontSize:20}}><b><u>Activities</u></b></h3>
                         {this.printEventbriteSchedules()}
                     </div>
                 </div>

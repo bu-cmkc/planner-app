@@ -33,7 +33,7 @@ function yelp(res, prefs) {
         location: location,
         radius: Number(radius),
         categories: food,
-        limit: 2,
+        limit: 6,
       };
       const client = yelp.client(apiKey);
 
@@ -93,6 +93,18 @@ function eventbrite (res, prefs) {
     
 }
 
+router.get('/', (req, res) => {
+    if (req.user) {
+        Schedule.find({user_id:req.user._id})
+            .then(
+                sched =>
+                res.send(sched)
+            );
+    } else {
+        return res.json({ user: null })
+    }
+});
+
 router.get('/yelp', (req, res) => {
     if (req.user) {
         Pref.find({user_id:req.user._id})
@@ -151,10 +163,10 @@ router.get('/eventbrite', (req, res) => {
 // @desc   Update schedule
 // @access Public
 router.put('/', (req, res) => {
-    const { schedule } = req.body;
+    const schedule = req.body;
     const { user_id } = req.body;
     const newSched = {
-      schedule: schedule, 
+      schedule: Array.from(schedule), 
       user_id: user_id
     }
     //{upsert:true} creates schedule if doesn't exist
