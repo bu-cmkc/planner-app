@@ -103,7 +103,7 @@ export default class Eventbrite extends Component {
                             <input type="text" className="form-control" value={this.state.port}  onChange={this.onChangePort}/>
                         </div> */}
                         <div className="form-group">
-                            <input type="submit" value="Add Node server" className="btn btn-primary"/>
+                            <input type="submit" value="Get Your Events!" className="btn btn-primary"/>
                         </div>
                     </form>
                 </div>

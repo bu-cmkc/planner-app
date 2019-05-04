@@ -143,7 +143,7 @@ class PreferenceForm extends Component {
 
             setTimeout(putAll, 0)
             this.setState({
-                // redirectTo: '/schedules'
+                redirectTo: '/schedules'
             })
                 // .then(response => {
                 //     if (!response.data.errmsg) {
